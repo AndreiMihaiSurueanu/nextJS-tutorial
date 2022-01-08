@@ -1,5 +1,4 @@
 import { MongoClient } from 'mongodb';
-import * as credentials from './credentials.json';
 
 // /api/new-meetup
 // POST /api/new-meetup
@@ -8,7 +7,7 @@ async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const client = await MongoClient.connect(credentials.mongoDbConnectionString);
+    const client = await MongoClient.connect(process.env.MONGODB_CONNECTION_STRING);
     const db = client.db();
 
     const meetupsCollection = db.collection('meetups');

@@ -3,7 +3,6 @@ import { Fragment } from 'react';
 import Head from 'next/head';
 
 import MeetupDetail from '../../components/meetups/MeetupDetail';
-import * as credentials from '../api/credentials.json';
 
 function MeetupDetails(props) {
   return (
@@ -23,7 +22,7 @@ function MeetupDetails(props) {
 }
 
 export async function getStaticPaths() {
-  const client = await MongoClient.connect(credentials.mongoDbConnectionString);
+  const client = await MongoClient.connect(process.env.MONGODB_CONNECTION_STRING);
   const db = client.db();
 
   const meetupsCollection = db.collection('meetups');
@@ -45,7 +44,7 @@ export async function getStaticProps(context) {
 
   const meetupId = context.params.meetupId;
 
-  const client = await MongoClient.connect(credentials.mongoDbConnectionString);
+  const client = await MongoClient.connect(process.env.MONGODB_CONNECTION_STRING);
   const db = client.db();
 
   const meetupsCollection = db.collection('meetups');
